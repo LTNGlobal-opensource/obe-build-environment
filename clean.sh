@@ -10,6 +10,6 @@ rm -rf 	target-root
 rm -rf 	twolame-0.3.13
 rm -rf 	x264-obe
 rm -rf 	obe-bitstream
-rm -rf 	libklvanc
+rm -rf 	libklvanc klvanc-tools
 rm -rf 	libklscte35
 rm -rf 	bmsdk

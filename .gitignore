@@ -4,6 +4,7 @@ fdk-aac/
 libav-obe/
 libklscte35/
 libklvanc/
+klvanc-tools/
 libmpegts-obe/
 libyuv/
 obe-bitstream/
@@ -11,3 +12,4 @@ obe-rt/
 target-root/
 twolame-0.3.13/
 x264-obe/
+bmsdk/

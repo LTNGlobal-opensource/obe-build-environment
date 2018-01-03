@@ -73,6 +73,11 @@ elif [ "$1" == "ac3disconnect" ]; then
 	LIBKLVANC_TAG=vid.obe.1.1.5
 	LIBKLSCTE35_TAG=vid.obe.1.1.2
 	LIBMPEGTS_TAG=vid.libmpegts-obe-1.1.2
+elif [ "$1" == "klvanc-new-namespace" ]; then
+	OBE_TAG=klvanc-new-namespace
+	LIBKLVANC_TAG=master
+	LIBKLSCTE35_TAG=master
+	LIBMPEGTS_TAG=vid.libmpegts-obe-1.1.2
 else
 	echo "Invalid argument"
 	exit 1
@@ -84,14 +89,20 @@ if [ ! -d bmsdk ]; then
 fi
 
 if [ ! -d libklvanc ]; then
-	git clone https://github.com/LTNGlobal-opensource/libklvanc.git
+	#git clone https://github.com/LTNGlobal-opensource/libklvanc.git
+	git clone https://github.com/stoth68000/libklvanc.git
 	if [ "$LIBKLVANC_TAG" != "" ]; then
 		cd libklvanc && git checkout $LIBKLVANC_TAG && cd ..
 	fi
 fi
 
+if [ ! -d klvanc-tools ]; then
+	git clone https://github.com/stoth68000/klvanc-tools.git
+fi
+
 if [ ! -d libklscte35 ]; then
-	git clone https://github.com/LTNGlobal-opensource/libklscte35.git
+	#git clone https://github.com/LTNGlobal-opensource/libklscte35.git
+	git clone https://github.com/stoth68000/libklscte35.git
 	if [ "$LIBKLSCTE35_TAG" != "" ]; then
 		cd libklscte35 && git checkout $LIBKLSCTE35_TAG && cd ..
 	fi
@@ -133,6 +144,15 @@ fi
 
 pushd libklvanc
 	./autogen.sh --build
+	./configure --enable-shared=no --prefix=$PWD/../target-root/usr/local
+	make && make install
+	make install
+popd
+
+pushd klvanc-tools
+	./autogen.sh --build
+	export CFLAGS="-I$PWD/../target-root/usr/local/include"
+	export LDFLAGS="-L$PWD/../target-root/usr/local/lib"
 	./configure --enable-shared=no --prefix=$PWD/../target-root/usr/local
 	make && make install
 	make install
