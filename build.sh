@@ -577,6 +577,21 @@ elif [ "$1" == "vid.obe.4.2.0-dev" ]; then
 	BUILD_NDI=1
 	BUILD_DEKTEC=0
 	BUILD_VEGA3311=1
+elif [ "$1" == "vid.obe.4.2.1" ]; then
+	OBE_TAG=vid.obe.4.2.1
+	LIBKLVANC_TAG=vid.obe.1.10.0
+	LIBKLSCTE35_TAG=vid.obe.1.3.0
+	LIBMPEGTS_TAG=hevc-dev
+	BUILD_X265=1
+	BUILD_LIBAV=0
+	BUILD_VAAPI=0
+	BUILD_LIBWEBSOCKETS=0
+	BUILD_JSONC=0
+	BUILD_LIBLTNTSTOOLS=1
+	LIBLTNTSTOOLS_TAG=4fbb32125bc1ea095cf26a0f7b1b279082fdd592
+	BUILD_NDI=1
+	BUILD_DEKTEC=0
+	BUILD_VEGA3311=1
 else
 	echo "Invalid argument"
 	exit 1
