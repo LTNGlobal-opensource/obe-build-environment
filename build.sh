@@ -721,6 +721,12 @@ if [ "$X264_TIP" -eq 1 ]; then
 else
 	if [ ! -d x264-obe ]; then
 		git clone https://github.com/LTNGlobal-opensource/x264-obe.git
+		cd x264-obe
+		patch -p1 <../pic0001.diff
+		patch -p1 <../pic0002.diff
+		patch -p1 <../pic0003.diff
+		patch -p1 <../pic0004.diff
+		cd ..
 	fi
 fi
 
