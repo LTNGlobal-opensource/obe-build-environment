@@ -13,6 +13,8 @@ JSONC_TAG=6c55f65d07a972dbd2d1668aab2e0056ccdd52fc
 BUILD_X265=0
 BUILD_LIBWEBSOCKETS=0
 LIBWEBSOCKETS_TAG=v3.2.0
+LIBLTNSDI_TAG=master
+BUILD_LIBLTNSDI=1
 BUILD_JSONC=0
 BUILD_LIBAV=1
 BUILD_VAAPI=0
@@ -611,6 +613,13 @@ BMSDK_10_8_5=$PWD/bmsdk/10.8.5/$PLAT
 BMSDK_10_1_1=$PWD/bmsdk/10.1.1/$PLAT
 BMSDK_12_9=$PWD/bmsdk/12.9/$PLAT
 
+if [ $BUILD_LIBLTNSDI -eq 1 ]; then
+	if [ ! -d libltnsdi ]; then
+		git clone https://github.com/LTNGlobal-opensource/libltnsdi
+		cd libltnsdi && git checkout $LIBLTNSDI_TAG && cd ..
+	fi
+fi
+
 if [ $BUILD_LIBLTNTSTOOLS -eq 1 ]; then
 	if [ ! -d libltntstools ]; then
 		git clone https://github.com/LTNGlobal-opensource/libltntstools
@@ -772,6 +781,18 @@ if [ $BUILD_DEKTEC -eq 1 ]; then
 	popd
 fi
 
+
+if [ $BUILD_LIBLTNSDI -eq 1 ]; then
+	pushd libltnsdi
+		if [ ! -f .skip ]; then
+			./autogen.sh --build
+			./configure --prefix=$PWD/../target-root/usr/local --enable-shared=no
+			make -j$JOBS
+			make install
+			touch .skip
+		fi
+	popd
+fi
 
 if [ $BUILD_LIBLTNTSTOOLS -eq 1 ]; then
 	pushd libltntstools
