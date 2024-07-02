@@ -14,13 +14,15 @@ BUILD_X265=0
 BUILD_LIBWEBSOCKETS=0
 LIBWEBSOCKETS_TAG=v3.2.0
 LIBLTNSDI_TAG=master
-BUILD_LIBLTNSDI=1
+BUILD_LIBLTNSDI=0
 BUILD_JSONC=0
 BUILD_LIBAV=1
 BUILD_VAAPI=0
 BUILD_NVENC=0
 BUILD_VEGA3301=0
 BUILD_VEGA3311=0
+BUILD_CURL=0
+CURL_TAG=curl-8_8_0
 VEGA_SDK=$PWD/vega-sdk
 BUILD_LIBLTNTSTOOLS=0
 LIBLTNTSTOOLS_TAG=4fbb32125bc1ea095cf26a0f7b1b279082fdd592
@@ -594,6 +596,25 @@ elif [ "$1" == "vid.obe.4.2.1" ]; then
 	BUILD_NDI=1
 	BUILD_DEKTEC=0
 	BUILD_VEGA3311=1
+elif [ "$1" == "vid.obe.4.3.1" ]; then
+	OBE_TAG=vid.obe.4.3.1
+	LIBKLVANC_TAG=vid.obe.1.10.0
+	LIBKLSCTE35_TAG=vid.obe.1.3.0
+	LIBMPEGTS_TAG=hevc-dev
+	BUILD_X265=1
+	BUILD_LIBAV=0
+	BUILD_VAAPI=0
+	BUILD_LIBWEBSOCKETS=0
+	BUILD_JSONC=0
+	BUILD_LIBLTNTSTOOLS=1
+	LIBLTNTSTOOLS_TAG=4fbb32125bc1ea095cf26a0f7b1b279082fdd592
+	BUILD_NDI=1
+	BUILD_DEKTEC=0
+	BUILD_VEGA3311=1
+	BUILD_CURL=1
+	CURL_TAG=curl-8_8_0
+	BUILD_LIBLTNSDI=1
+	LIBLTNSDI_TAG=master
 else
 	echo "Invalid argument"
 	exit 1
@@ -612,6 +633,13 @@ BMSDK_10_11_2=$PWD/bmsdk/10.11.2/$PLAT
 BMSDK_10_8_5=$PWD/bmsdk/10.8.5/$PLAT
 BMSDK_10_1_1=$PWD/bmsdk/10.1.1/$PLAT
 BMSDK_12_9=$PWD/bmsdk/12.9/$PLAT
+
+if [ $BUILD_CURL -eq 1 ]; then
+	if [ ! -d curl ]; then
+		git clone https://github.com/curl/curl.git
+		cd curl && git checkout $CURL_TAG && cd ..
+	fi
+fi
 
 if [ $BUILD_LIBLTNSDI -eq 1 ]; then
 	if [ ! -d libltnsdi ]; then
@@ -787,6 +815,18 @@ if [ $BUILD_DEKTEC -eq 1 ]; then
 	popd
 fi
 
+
+if [ $BUILD_CURL -eq 1 ]; then
+	pushd curl
+		if [ ! -f .skip ]; then
+			autoreconf -fi
+			./configure --prefix=$PWD/../target-root/usr/local --enable-shared=no --without-ssl
+			make -j$JOBS
+			make install
+			touch .skip
+		fi
+	popd
+fi
 
 if [ $BUILD_LIBLTNSDI -eq 1 ]; then
 	pushd libltnsdi
