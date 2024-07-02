@@ -1,3 +1,12 @@
+
+v4.3.1
+    * Add closed gop support, disabled by default.
+    * Add support for pushing internal stats to a local webserver, disabled by default
+    * Add support for timecode, generating PIC_TIMING structs, disabled by default.
+    * x264 patches for timecode, generating PIC_TIMING structs, disabled by default.
+    * nodejs webserver that can receive stats and present to a browser, disabled.
+    * Various changes across the stack to collect more metrics, audio levels.
+
 v4.2.1
     * Add audio channel muting support
     * Add audio channel remapping support
