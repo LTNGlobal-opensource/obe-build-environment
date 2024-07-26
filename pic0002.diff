@@ -10,7 +10,7 @@ index 1d8004bff89aeb116cdb91718167ca62f1935aea..c29298a1dbf314c145d315dc62b3bc26
  
      // NOTE: HRD related parts of the SPS are initialised in x264_ratecontrol_init_reconfigurable
  
-@@ -666,8 +667,79 @@ void x264_sei_pic_timing_write( x264_t *h, bs_t *s )
+@@ -666,8 +667,80 @@ void x264_sei_pic_timing_write( x264_t *h, bs_t *s )
  
          // These clock timestamps are not standardised so we don't set them
          // They could be time of origin, capture or alternative ideal display
@@ -83,6 +83,7 @@ index 1d8004bff89aeb116cdb91718167ca62f1935aea..c29298a1dbf314c145d315dc62b3bc26
 +                }
 +
 +                // length is initialised to 24, it is user's fault if it's invalid here
++                sps->vui.hrd.i_time_offset_length = 24;
 +                if ( sps->vui.hrd.i_time_offset_length > 0 )
 +                {
 +                    bs_write( &q, sps->vui.hrd.i_time_offset_length, 0 );
