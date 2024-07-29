@@ -1,4 +1,13 @@
 
+v4.4.1
+    * Gold Leaf encoding support for interlaced AVC 8bit 4:2:0 content
+    * Gold Leaf encoding support for AVC content
+    * Gold Leaf encoding support for selecting either 4:2:0 ot 4:2:2 colorspace encoding type
+    * Gold Leaf encoding support for selecting either 8 bit ot 10 bit encoding mode for progressive content
+    * Gold Leaf support for 4K QUAD encoding, in either AVC or HEVC, 8 or 10 bit, 4:2:0 ot 4:2:2
+    * Further improvements to the status UI, remains disabled.
+    * Bug in the pic_timign struct caused the time_offset field not to be populated with 24bits
+
 v4.3.1
     * Add closed gop support, disabled by default.
     * Add support for pushing internal stats to a local webserver, disabled by default
