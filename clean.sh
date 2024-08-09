@@ -22,4 +22,5 @@ rm -rf  x265
 rm -rf  libwebsockets
 rm -rf  json-c
 rm -rf  libltntstools
+rm -rf  libltnsdi
 rm -f   tarball.tgz
