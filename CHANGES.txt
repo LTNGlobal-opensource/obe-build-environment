@@ -1,4 +1,7 @@
 
+v4.5.1
+    * Decklink: Add debug feature to burn timecode into each video frame.
+
 v4.4.2
     * bugfix. Memory leak introduced in 4.3.1 for assessing audio levels (strctly for the web UI).
 
