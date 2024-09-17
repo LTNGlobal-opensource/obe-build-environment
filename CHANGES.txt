@@ -1,4 +1,7 @@
 
+v4.5.2
+    * Full clean build prior to release
+
 v4.5.1
     * Decklink: Add debug feature to burn timecode into each video frame.
 
