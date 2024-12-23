@@ -1,4 +1,12 @@
 
+v4.6.2:
+    * Removed part of an audio patch make June24 2024 that could result in a slow memory leak.
+    * Adjusted some Vega specific console debug messages.
+
+v4.6.1
+    * Adjust gold-leaf PCR by -300ms to prevent PTS arriving too late.
+    * Bugfixes related to setting codec profile and level not working properly.
+
 v4.5.2
     * Full clean build prior to release
 
