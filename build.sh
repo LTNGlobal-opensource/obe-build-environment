@@ -710,8 +710,8 @@ elif [ "$1" == "vid.obe.4.6.1" ]; then
 	CURL_TAG=curl-8_8_0
 	BUILD_LIBLTNSDI=1
 	LIBLTNSDI_TAG=master
-elif [ "$1" == "vid.obe.4.7.1" ]; then
-	OBE_TAG=vid.obe.4.7.1
+elif [ "$1" == "vid.obe.4.7.2" ]; then
+	OBE_TAG=vid.obe.4.7.2
 	LIBKLVANC_TAG=vid.obe.1.10.0
 	LIBKLSCTE35_TAG=vid.obe.1.3.0
 	LIBMPEGTS_TAG=hevc-dev
