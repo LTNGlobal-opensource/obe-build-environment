@@ -1,7 +1,12 @@
 
-v4.6.2:
+v4.7.1
     * Removed part of an audio patch make June24 2024 that could result in a slow memory leak.
-    * Adjusted some Vega specific console debug messages.
+    * Gold Leaf - 1080p29.97 mis-identified as 1080p30
+    * Gold Leaf - simplified how we initialize the HEVC codec (needs a lot of testing)
+    * Gold Leaf - whitespace clean, dead code removal
+    * Gold Leaf - refactored initialization
+    * Gold Leaf - AVC gop size was defaulting to 240 frames, now set to 1 second.
+    * Gold Leaf - AVC encoding 8bit 422 / remove a dorc spam console message.
 
 v4.6.1
     * Adjust gold-leaf PCR by -300ms to prevent PTS arriving too late.
