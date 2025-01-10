@@ -1,4 +1,8 @@
 
+v4.7.3
+    * WST loss of captions after 35 days
+    * Gold Leaf - Magic commands to ovserve hardware clocks improved
+
 v4.7.2
     * Removed part of an audio patch make June24 2024 that could result in a slow memory leak.
     * Gold Leaf - 1080p29.97 mis-identified as 1080p30
