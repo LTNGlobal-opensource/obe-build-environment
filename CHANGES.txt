@@ -1,4 +1,7 @@
 
+v4.8.2
+    * Added AC3 compression gain option (disabled by default)
+
 v4.7.3
     * WST loss of captions after 35 days
     * Gold Leaf - Magic commands to ovserve hardware clocks improved
