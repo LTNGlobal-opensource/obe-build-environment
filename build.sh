@@ -22,6 +22,7 @@ BUILD_NVENC=0
 BUILD_VEGA3301=0
 BUILD_VEGA3311=0
 BUILD_CURL=0
+BUILD_SRT=0
 CURL_TAG=curl-8_8_0
 VEGA_SDK=$PWD/vega-sdk
 BUILD_LIBLTNTSTOOLS=0
@@ -767,6 +768,26 @@ elif [ "$1" == "vid.obe.4.8.2" ]; then
 	CURL_TAG=curl-8_8_0
 	BUILD_LIBLTNSDI=1
 	LIBLTNSDI_TAG=master
+elif [ "$1" == "vid.obe.4.9.0-dev" ]; then
+	OBE_TAG=vid.obe.4.8.2
+	LIBKLVANC_TAG=vid.obe.1.10.0
+	LIBKLSCTE35_TAG=vid.obe.1.3.0
+	LIBMPEGTS_TAG=hevc-dev
+	BUILD_X265=1
+	BUILD_LIBAV=0
+	BUILD_VAAPI=0
+	BUILD_LIBWEBSOCKETS=0
+	BUILD_JSONC=1
+	BUILD_LIBLTNTSTOOLS=1
+	LIBLTNTSTOOLS_TAG=4fbb32125bc1ea095cf26a0f7b1b279082fdd592
+	BUILD_NDI=1
+	BUILD_DEKTEC=0
+	BUILD_VEGA3311=1
+	BUILD_CURL=1
+	BUILD_SRT=1
+	CURL_TAG=curl-8_8_0
+	BUILD_LIBLTNSDI=1
+	LIBLTNSDI_TAG=master
 else
 	echo "Invalid argument"
 	exit 1
@@ -785,6 +806,19 @@ BMSDK_10_11_2=$PWD/bmsdk/10.11.2/$PLAT
 BMSDK_10_8_5=$PWD/bmsdk/10.8.5/$PLAT
 BMSDK_10_1_1=$PWD/bmsdk/10.1.1/$PLAT
 BMSDK_12_9=$PWD/bmsdk/12.9/$PLAT
+
+if [ $BUILD_SRT -eq 1 ]; then
+	if [ ! -d srt ]; then
+		git clone https://github.com/Haivision/srt.git
+		cd srt && git checkout v1.4.4 -b build
+		patch -p1 <../0002-srt-cmake.patch
+		if [ "`uname -o`" == "Darwin" ]; then
+			patch -p1 <../0003-srt-cmake-darwin.patch
+		fi
+		cd ..
+	fi
+fi
+
 
 if [ $BUILD_CURL -eq 1 ]; then
 	if [ ! -d curl ]; then
@@ -973,6 +1007,17 @@ if [ $BUILD_CURL -eq 1 ]; then
 		if [ ! -f .skip ]; then
 			autoreconf -fi
 			./configure --prefix=$PWD/../target-root/usr/local --enable-shared=no --without-ssl
+			make -j$JOBS
+			make install
+			touch .skip
+		fi
+	popd
+fi
+
+if [ $BUILD_SRT -eq 1 ]; then
+	pushd srt
+		if [ ! -f .skip ]; then
+			./configure --enable-static=ON --enable-shared=OFF --prefix=$PWD/../target-root/usr/local --enable-debug=2
 			make -j$JOBS
 			make install
 			touch .skip
@@ -1221,6 +1266,9 @@ build_obe() {
 	export CFLAGS="-I$PWD/../target-root/usr/local/include -I$BMSDK_DIR"
 	export LDFLAGS="-L$PWD/../target-root/usr/local/lib"
 	export PKG_CONFIG_PATH=$PWD/../target-root/usr/local/lib/pkgconfig
+	if [ $BUILD_SRT -eq 1 ]; then
+		export LDFLAGS="$LDFLAGS -L$PWD/../target-root/usr/local/lib64 -lsrt -lcrypto"
+	fi
 	if [ $BUILD_NDI -eq 1 ]; then
 		export CFLAGS="$CFLAGS -I$NDI_SDK/include"
 		export LDFLAGS="$LDFLAGS -L$NDI_SDK/lib/x86_64-linux-gnu"

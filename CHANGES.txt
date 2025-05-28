@@ -1,4 +1,7 @@
 
+v4.9.0 - dev
+    * Added support for SRT caller mode
+
 v4.8.2
     * Added AC3 compression gain option (disabled by default)
 
