@@ -887,7 +887,7 @@ fi
 
 if [ $BUILD_X265 -eq 1 ]; then
 	if [ ! -d x265 ]; then
-		git clone https://github.com/videolan/x265.git
+		git clone https://github.com/Multicorewareinc/x265.git
 		cd x265
 		git checkout $X265_TAG
 		patch -p1 <../0003-x265-sei-overflow.patch
