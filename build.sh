@@ -945,7 +945,7 @@ else
 fi
 
 if [ ! -d fdk-aac ]; then
-	git clone https://github.com/LTNGlobal-opensource/fdk-aac.git
+	git clone https://github.com/mstorsjo/fdk-aac.git
 fi
 
 if [ $BUILD_LIBAV -eq 1 ]; then
@@ -1212,7 +1212,6 @@ else
 			--enable-decklink \
 			--enable-libfdk-aac \
 			--disable-swscale-alpha \
-			--enable-libfdk-aac \
 			--enable-libx264 \
 			--pkg-config-flags="--static" \
 			--enable-libx265 \
