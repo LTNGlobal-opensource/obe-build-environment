@@ -788,6 +788,28 @@ elif [ "$1" == "vid.obe.4.9.0-dev" ]; then
 	CURL_TAG=curl-8_8_0
 	BUILD_LIBLTNSDI=1
 	LIBLTNSDI_TAG=master
+elif [ "$1" == "macos" ]; then
+	OBE_TAG=vid.obe.4.8.2
+	LIBKLVANC_TAG=vid.obe.1.10.0
+	LIBKLSCTE35_TAG=vid.obe.1.3.0
+	LIBMPEGTS_TAG=hevc-dev
+	BUILD_X265=1
+	X265_TAG=master
+	BUILD_LIBAV=0
+	BUILD_VAAPI=0
+	BUILD_LIBWEBSOCKETS=0
+	BUILD_JSONC=1
+	BUILD_LIBLTNTSTOOLS=1
+	LIBLTNTSTOOLS_TAG=4fbb32125bc1ea095cf26a0f7b1b279082fdd592
+	BUILD_NDI=1
+	BUILD_DEKTEC=0
+	BUILD_VEGA3311=0
+	BUILD_CURL=0
+	BUILD_SRT=1
+	CURL_TAG=curl-8_8_0
+	BUILD_LIBLTNSDI=1
+	LIBLTNSDI_TAG=master
+	X264_TIP=1
 else
 	echo "Invalid argument"
 	exit 1
@@ -1267,6 +1289,9 @@ build_obe() {
 	export PKG_CONFIG_PATH=$PWD/../target-root/usr/local/lib/pkgconfig
 	if [ $BUILD_SRT -eq 1 ]; then
 		export LDFLAGS="$LDFLAGS -L$PWD/../target-root/usr/local/lib64 -lsrt -lcrypto"
+		if [ "`uname -o`" == "Darwin" ]; then
+			export LDFLAGS="$LDFLAGS -L/opt/homebrew/lib"
+		fi
 	fi
 	if [ $BUILD_NDI -eq 1 ]; then
 		export CFLAGS="$CFLAGS -I$NDI_SDK/include"
