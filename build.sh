@@ -810,7 +810,7 @@ BMSDK_12_9=$PWD/bmsdk/12.9/$PLAT
 if [ $BUILD_SRT -eq 1 ]; then
 	if [ ! -d srt ]; then
 		git clone https://github.com/Haivision/srt.git
-		cd srt && git checkout v1.4.4 -b build
+		cd srt && git checkout v1.5.7 -b build
 		patch -p1 <../0002-srt-cmake.patch
 		if [ "`uname -o`" == "Darwin" ]; then
 			patch -p1 <../0003-srt-cmake-darwin.patch
