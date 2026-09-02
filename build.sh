@@ -1108,7 +1108,7 @@ if [ $BUILD_X265 -eq 1 ]; then
 				../../source
 			make -j$JOBS
 			make install
-			#touch .skip
+			touch .skip
 		fi
 	popd
 fi
