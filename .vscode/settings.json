@@ -46,6 +46,7 @@
         "**/*.o": true,
         "**/Makefile": true,
         "**/Makefile.in": true,
+        "**/.dirstamp": true,
         "**/.libs": true,
         "**/.deps": true,
         "**/m4": true,
